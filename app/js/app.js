@@ -16,7 +16,7 @@ config(['$routeProvider', function($routeProvider) {
   $routeProvider.otherwise({redirectTo: '/view1'});
 }])
 .controller('itemsCtrl', ["$scope", "$rootScope", "angularFireCollection", function ($scope, $rootScope, angularFireCollection) {
-    var ref = new Firebase("https://sdp-cms.firebaseio.com/");
+    var ref = new Firebase("https://sdp-cms.firebaseio.com/organisations");
     $scope.items = angularFireCollection(ref, function(i){
         console.log(i.val());
     });

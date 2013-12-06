@@ -1,2 +1,6 @@
 <p>This is the partial for view 1. {{items}}</p>
-
+<h2>Members</h2>
+<ul>
+    <li ng-repeat="item in items">{{item.name}} <input ng-model="item.name"></li>
+</ul>
+<!-- Open question – member by type? --> 
