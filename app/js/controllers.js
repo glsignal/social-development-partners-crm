@@ -44,15 +44,15 @@ controller('organisationList', ["$scope", "$rootScope", "angularFireCollection",
   .controller('contactList', ["$scope", "$rootScope", "angularFireCollection",
     function($scope, $rootScope, angularFireCollection) {
       var contacts = new Firebase("https://sdp-cms.firebaseio.com/contacts");
-      $scope.testDump = []; 
+      $scope.contactsDump = []; 
       $scope.contacts = angularFireCollection(contacts, function(i) {
-        $scope.generateExportableData(); 
+        $scope.generateExportableData(i.val()); 
       });
-      $scope.generateExportableData = function() {
-        // console.log($scope.contacts);
-        for (var i = 0; i < $scope.contacts.length; i++) {
-          var oldObj = $scope.contacts[i];
-          // console.log(oldObj);
+      $scope.generateExportableData = function(contactsArray) {
+        console.log(contactsArray);
+        for (var i = 0; i < contactsArray.length; i++) {
+          var oldObj = contactsArray[i];
+          console.log(oldObj);
           var newObject = {
             "First Name": oldObj.firstname,
             "Last Name": oldObj.lastname, 
