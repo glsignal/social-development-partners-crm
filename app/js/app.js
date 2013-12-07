@@ -16,7 +16,7 @@ config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/contacts', {templateUrl: '/app/partials/contacts.html', controller: 'contactList'});
   $routeProvider.when('/contact/:id', {templateUrl: '/app/partials/contact.html', controller: 'singleContact'});
   $routeProvider.when('/organisation/:id', {templateUrl: '/app/partials/organisation.html', controller: 'singleOrganisation'});
-  $routeProvider.when('/mailchimp', {templateUrl: 'partials/mailchimp.html', controller: 'contactList'});
+  $routeProvider.when('/mailchimp', {templateUrl: '/app/partials/mailchimp.html', controller: 'contactList'});
   $routeProvider.otherwise({redirectTo: '/organisations'});
 }]);
 

@@ -61,8 +61,8 @@ controller('organisationList', ["$scope", "$rootScope", "angularFireCollection",
             "Other Phone": oldObj.phone.other
           }
           $scope.contactsDump.push(newObject);
-        };
-
+        }
+      }
       $scope.contacts = angularFireCollection(contacts, function(i) {
         $scope.generateExportableData(i.val()); 
           var emailBuffer = "";
@@ -78,7 +78,6 @@ controller('organisationList', ["$scope", "$rootScope", "angularFireCollection",
           $scope.mailChimpData = emailBuffer;
       });
       //console.log($scope.contactsDump);
-      }
     }
   ])
   .controller('singleOrganisation', ["$scope", "$rootScope", "angularFire", "angularFireCollection", "$routeParams",
