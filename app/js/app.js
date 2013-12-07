@@ -10,10 +10,10 @@ angular.module('myApp', [
   'myApp.controllers'
 ]).
 config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/organisations', {templateUrl: 'partials/organisations.html', controller: 'organisationList'});
-  $routeProvider.when('/contacts', {templateUrl: 'partials/contacts.html', controller: 'contactList'});
-  $routeProvider.when('/contact/:id', {templateUrl: 'partials/contact.html', controller: 'singleContact'});
-  $routeProvider.when('/organisation/:id', {templateUrl: 'partials/organisation.html', controller: 'singleOrganisation'});
+  $routeProvider.when('/organisations', {templateUrl: '/app/partials/organisations.html', controller: 'organisationList'});
+  $routeProvider.when('/contacts', {templateUrl: '/app/partials/contacts.html', controller: 'contactList'});
+  $routeProvider.when('/contact/:id', {templateUrl: '/app/partials/contact.html', controller: 'singleContact'});
+  $routeProvider.when('/organisation/:id', {templateUrl: '/app/partials/organisation.html', controller: 'singleOrganisation'});
   $routeProvider.otherwise({redirectTo: '/organisations'});
 }]);
 
