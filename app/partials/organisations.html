@@ -11,11 +11,11 @@
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="org in organisations">
+        <tr ng-repeat="org in stuffedOrgs">
             <td>{{org.name}}</td>
             <td>{{org.address.city}}</td>
             <td>{{org.state}}</td>
-            <td><a href="#/contact/{{org.principal}}">Placeholder{{org.principal.name}}</a></td>
+            <td><a href="#/contact/{{org.principal.id}}">{{org.principal.firstname}} {{org.principal.lastname}}</a></td>
             <td>{{org.principal.email}}</td>
             <td>{{org.payment['2012'].amount}}</td> <!-- TODO: This needs to be automagically assigned as the latest year.-->
             <td>{{org.payment['2012'].paid}}</td> <!-- TODO: This needs to be automagically assigned as the latest year.-->
