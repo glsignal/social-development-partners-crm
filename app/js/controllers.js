@@ -10,7 +10,7 @@ controller('organisationList', ["$scope", "$rootScope", "angularFireCollection",
     $scope.contacts = angularFireCollection(cntcts, function(cntct){
       cntctsArray = cntct.val();
     });
-    
+
     var orgs = new Firebase("https://sdp-cms.firebaseio.com/organisations");
 
     var orgArray
