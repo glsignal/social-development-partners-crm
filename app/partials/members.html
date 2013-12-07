@@ -1,9 +1,21 @@
 <h2>Members</h2>
-<ul>
-    <li ng-repeat="org in organisations">
-        <h3><a href="">{{org.name}}</a></h3>
-        <p><a href="/view2/{{org.principal}}">{{org.principal}}</a></p>
-    </li>
-    <a href="#">Add New Organisation</a>
-</ul>
-<!-- Open question – member by type? --> 
+
+<table>
+    <thead>
+        <tr>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="org in organisations">
+            <td>{{org.name}}</td>
+            <td>{{org.state}}</td>
+            <td><a href="#/contact/{{org.principal}}">Placeholder{{org.principal.name}}</a></td>
+            <td>{{org.principal.email}}</td>
+            <td>{{org.payment['2012'].amount}}</td> <!-- TODO: This needs to be automagically assigned as the latest year.-->
+            <td>{{org.payment['2012'].paid}}</td> <!-- TODO: This needs to be automagically assigned as the latest year.-->
+            <td><button ng-toggle="">Paid</button></td> <!-- TODO: Hook this up. It will toggle paid between true/false and force an Update. --> 
+        </tr>
+    </tbody>
+</table>
+
