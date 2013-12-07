@@ -1,9 +1,10 @@
-<p>This is the partial for view 1. {{items}}</p>
 <h2>Members</h2>
 <ul>
-    <li ng-repeat="item in items">
-        <h3>{{item.name}}</h3>
-        <p><a href="">{{item.principal}}</a></p>
+    <li ng-repeat="org in organisations">
+        <h3>{{org.name}}</h3>
+        <p><a href="/view2/{{org.principal}}">{{org.principal}}</a></p>
+
     </li>
+    <a href="#">Add New Organisation</a>
 </ul>
 <!-- Open question – member by type? --> 
