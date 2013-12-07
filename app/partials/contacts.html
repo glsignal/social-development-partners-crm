@@ -1,15 +1,23 @@
 <h2>Contacts</h2>
+
+<input type="search">
 <table>
-    
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Phone Number</th>
+            <th>Organisation</th>
+            <th>Email</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="contact in contacts">
+            <td><a href="#/contact/{{contact.id}}">{{contact.firstname}} {{contact.lastname}}</a></td>
+            <td>{{contact.phone.landline}}</td>
+            <td><a href="#/member/{{contact.organisation}}">Placeholder{{contact.organisation.name}}</a></td>
+            <td>{{contact.email}}</td>
+        </tr>
+    </tbody>
+
 </table>
 
-<ul>
-    <li ng-repeat="contact in contacts">
-        <h3><a href="">{{org.name}}</a></h3>
-        <p><a href="/view2/{{org.principal}}">{{org.principal}}</a></p>
-        <p><a href="/view2/{{org.city}}">{{org.city}}</a></p>
-        <p><a href="/view2/{{org.state}}">{{org.state}}</a></p>
-    </li>
-    <a href="#">Add New Organisation</a>
-</ul>
-<!-- Open question – member by type? --> 

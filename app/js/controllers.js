@@ -35,8 +35,8 @@ controller('organisationList', ["$scope", "$rootScope", "angularFireCollection",
 ])
   .controller('contactList', ["$scope", "$rootScope", "angularFireCollection",
     function($scope, $rootScope, angularFireCollection) {
-      var orgs = new Firebase("https://sdp-cms.firebaseio.com/contacts");
-      $scope.contacts = angularFireCollection(orgs, function(i) {});
+      var contacts = new Firebase("https://sdp-cms.firebaseio.com/contacts");
+      $scope.contacts = angularFireCollection(contacts, function(i) {});
     }
   ])
   .controller('singleOrganisation', ["$scope", "$rootScope", "angularFire", "$routeParams",
