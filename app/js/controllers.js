@@ -44,7 +44,20 @@ controller('organisationList', ["$scope", "$rootScope", "angularFireCollection",
   .controller('contactList', ["$scope", "$rootScope", "angularFireCollection",
     function($scope, $rootScope, angularFireCollection) {
       var contacts = new Firebase("https://sdp-cms.firebaseio.com/contacts");
-      $scope.contacts = angularFireCollection(contacts, function(i) {});
+      $scope.contacts = angularFireCollection(contacts, function(i) {
+          var emailBuffer = "";
+          angular.forEach(i.val(), function(contact, key) {
+            if (contact.email != null) {
+              emailBuffer += (contact.firstname == null ? '' : contact.firstname) + "|" + (contact.lastname == null ? '' : contact.lastname) + "|" + contact.email + ",";
+            }
+            else {
+              console.log("Contact without email! " + key);
+            }
+          });
+          emailBuffer = emailBuffer.substring(0, emailBuffer.length - 1);
+          $scope.mailChimpData = emailBuffer;
+      });
+
       //$scope.contacts = [];
       $scope.testDump = []; 
       $scope.testExport = function() {
