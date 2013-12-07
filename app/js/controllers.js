@@ -3,20 +3,27 @@
 /* Controllers */
 
 angular.module('myApp.controllers', []).
-controller('listMembers', ["$scope", "$rootScope", "angularFireCollection",
+controller('memberList', ["$scope", "$rootScope", "angularFireCollection",
   function($scope, $rootScope, angularFireCollection) {
     var orgs = new Firebase("https://sdp-cms.firebaseio.com/organisations");
-
-    $scope.organisations = angularFireCollection(orgs, function(i) {
-      console.log(i.val());
-    });
-
+    $scope.organisations = angularFireCollection(orgs, function(i) {});
   }
 ])
+  .controller('contactList', ["$scope", "$rootScope", "angularFireCollection",
+    function($scope, $rootScope, angularFireCollection) {
+      var orgs = new Firebase("https://sdp-cms.firebaseio.com/organisations");
+      $scope.organisations = angularFireCollection(orgs, function(i) {});
+    }
+  ])
   .controller('singleContact', ["$scope", "$rootScope", "angularFire", "$routeParams",
     function($scope, $rootScope, angularFire, $routeParams) {
-      var contactId = $routeParams.id;
-      var ref = new Firebase("https://sdp-cms.firebaseio.com/contacts/" + contactId);
+      var ref = new Firebase("https://sdp-cms.firebaseio.com/contacts/" + $routeParams.id);
       angularFire(ref, $scope, "contact");
     }
-  ]);
+  ])
+  .controller('singleMember', ["$scope", "$rootScope", "angularFire", "$routeParams",
+    function($scope, $rootScope, angularFire, $routeParams) {
+      var ref = new Firebase("https://sdp-cms.firebaseio.com/members/" + $routeParams.id);
+      angularFire(ref, $scope, "member");
+    }
+  ])

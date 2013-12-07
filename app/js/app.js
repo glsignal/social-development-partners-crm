@@ -1,6 +1,5 @@
 'use strict';
 
-
 // Declare app level module which depends on filters, and services
 angular.module('myApp', [
   'ngRoute',
@@ -11,8 +10,10 @@ angular.module('myApp', [
   'myApp.controllers'
 ]).
 config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/view1', {templateUrl: 'partials/partial1.html', controller: 'listMembers'});
-  $routeProvider.when('/view2/:id', {templateUrl: 'partials/contact.html', controller: 'singleContact'});
-  $routeProvider.otherwise({redirectTo: '/view1'});
+  $routeProvider.when('/members', {templateUrl: 'partials/members.html', controller: 'memberList'});
+  $routeProvider.when('/contacts', {templateUrl: 'partials/contacts.html', controller: 'contactList'});
+  $routeProvider.when('/contact/:id', {templateUrl: 'partials/contact.html', controller: 'singleContact'});
+  $routeProvider.when('/member/:id', {templateUrl: 'partials/member.html', controller: 'singleMember'});
+  $routeProvider.otherwise({redirectTo: '/members'});
 }]);
 
