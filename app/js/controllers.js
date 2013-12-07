@@ -9,28 +9,34 @@ controller('organisationList', ["$scope", "$rootScope", "angularFireCollection",
     var cntctsArray
     $scope.contacts = angularFireCollection(cntcts, function(cntct){
       cntctsArray = cntct.val();
-    });
+      var orgs = new Firebase("https://sdp-cms.firebaseio.com/organisations");
 
-    var orgs = new Firebase("https://sdp-cms.firebaseio.com/organisations");
+      //console.log(cntctsArray);
 
-    var orgArray
-    $scope.organisations = angularFireCollection(orgs, function(org) {
-      orgArray = org.val();
-      angular.forEach(orgArray, function(org, key){
-        //console.log(key);
-        var principalId = org.principal;
-        if (principalId != null) {
-          var principalContact = cntctsArray[principalId];
-          principalContact.id = principalId;
-          org.principal = principalContact;
-          //console.log(org);
-        }
-        else {
-          console.log("Org without a principal!");
-          console.log(org);
-        }
+      $scope.organisations = angularFireCollection(orgs, function(org) {
+        var orgArray = org.val();
+        angular.forEach(orgArray, function(org, key){
+          //console.log(key);
+          var principalId = org.principal;
+          if (principalId != null) {
+            var principalContact = cntctsArray[principalId];
+            if (principalContact != null) {
+              principalContact.id = principalId;
+              org.principal = principalContact;
+            }
+            else {
+              console.log("Principal " + principalId + " not found");
+            }
+            //console.log(org);
+          }
+          else {
+            console.log("Org without a principal!");
+            console.log(org);
+          }
+        });
+        $scope.stuffedOrgs = orgArray;
       });
-      $scope.stuffedOrgs = orgArray;
+
     });
   }
 ])
