@@ -94,6 +94,17 @@ controller('organisationList', ["$scope", "$rootScope", "angularFireCollection",
   angularFire(ref, $scope, "organisation");
     }
   ])
+  .controller('addOrganisation', ["$scope", "$rootScope", "$location", "angularFireCollection",
+        function($scope, $rootScope, $location, angularFireCollection) {
+            $scope.orgs = new Firebase("https://sdp-cms.firebaseio.com/organisations/");
+            $scope.addOrg = function(org) {
+                console.log("Running Add Org");
+                var id = $scope.orgs.push(org).name();
+                $scope.id = id;
+                $location.path( '/organisation/' + id + '/').replace();
+            };
+        }
+    ])
   .controller('singleContact', ["$scope", "$rootScope", "angularFire", "$routeParams",
    function($scope, $rootScope, angularFire, $routeParams) {
     var ref = new Firebase("https://sdp-cms.firebaseio.com/contacts/" + $routeParams.id);
