@@ -7,7 +7,8 @@ angular.module('myApp', [
   'myApp.filters',
   'myApp.services',
   'myApp.directives',
-  'myApp.controllers', 
+  'myApp.controllers',
+  'ngSanitize', 
   'ngCsv'
 ]).
 config(['$routeProvider', function($routeProvider) {

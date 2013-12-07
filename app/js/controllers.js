@@ -44,6 +44,20 @@ controller('organisationList', ["$scope", "$rootScope", "angularFireCollection",
     function($scope, $rootScope, angularFireCollection) {
       var contacts = new Firebase("https://sdp-cms.firebaseio.com/contacts");
       $scope.contacts = angularFireCollection(contacts, function(i) {});
+      //$scope.contacts = [];
+      $scope.testDump = []; 
+      $scope.testExport = function() {
+        //console.log($scope.contacts);
+        for (var i = 0; i <= $scope.contacts.length; i++) {
+          var oldObj = $scope.contacts[i];
+          var newObject = {
+            firstname: oldObj.firstname,
+            lastname: oldObj.lastname
+          }
+          $scope.testDump.push(newObject);
+        };
+        console.log($scope.testDump);
+      }
     }
   ])
   .controller('singleOrganisation', ["$scope", "$rootScope", "angularFire", "$routeParams",
