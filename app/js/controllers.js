@@ -44,20 +44,27 @@ controller('organisationList', ["$scope", "$rootScope", "angularFireCollection",
   .controller('contactList', ["$scope", "$rootScope", "angularFireCollection",
     function($scope, $rootScope, angularFireCollection) {
       var contacts = new Firebase("https://sdp-cms.firebaseio.com/contacts");
-      $scope.contacts = angularFireCollection(contacts, function(i) {});
-      //$scope.contacts = [];
       $scope.testDump = []; 
-      $scope.testExport = function() {
-        //console.log($scope.contacts);
-        for (var i = 0; i <= $scope.contacts.length; i++) {
+      $scope.contacts = angularFireCollection(contacts, function(i) {
+        $scope.generateExportableData(); 
+      });
+      $scope.generateExportableData = function() {
+        // console.log($scope.contacts);
+        for (var i = 0; i < $scope.contacts.length; i++) {
           var oldObj = $scope.contacts[i];
+          // console.log(oldObj);
           var newObject = {
-            firstname: oldObj.firstname,
-            lastname: oldObj.lastname
+            "First Name": oldObj.firstname,
+            "Last Name": oldObj.lastname, 
+            "Job Title": oldObj.jobtitle,
+            "Company": oldObj.organisation, // TODO - REPLACE WITH RESOLVED ORG NAME.
+            "E-mail Address": oldObj.email,
+            "Primary Phone": oldObj.phone.landline, 
+            "Other Phone": oldObj.phone.other
           }
-          $scope.testDump.push(newObject);
+          $scope.contactsDump.push(newObject);
         };
-        console.log($scope.testDump);
+        console.log($scope.contactsDump);
       }
     }
   ])

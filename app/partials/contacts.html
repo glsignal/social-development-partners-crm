@@ -17,7 +17,6 @@
             <td>{{contact.email}}</td>
         </tr>
     </tbody>
-    <button ng-csv="testDump" filename="test.csv">Yolo</button>
-    <button ng-click="testExport()" >Hey</button>
+    <button type="button" ng-csv="contactsDump" filename="sdp_contacts.csv" csv-header="['First Name', 'Last Name', 'Job Title', 'Organisation', 'Email Address', 'Primary Phone', 'Other Phone']" >Export as CSV</button>
 </table>
 
