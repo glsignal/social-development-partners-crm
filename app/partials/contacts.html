@@ -1,5 +1,4 @@
 <h2>Contacts</h2>
-
 <input type="search">
 <table>
     <thead>
@@ -14,7 +13,7 @@
         <tr ng-repeat="contact in contacts">
             <td><a href="#/contact/{{contact.id}}">{{contact.firstname}} {{contact.lastname}}</a></td>
             <td>{{contact.phone.landline}}</td>
-            <td><a href="#/member/{{contact.organisation}}">Placeholder{{contact.organisation.name}}</a></td>
+            <td><a href="#/member/{{contact.organisation}}">Org Name{{contact.organisation.name}}</a></td>
             <td>{{contact.email}}</td>
         </tr>
     </tbody>
