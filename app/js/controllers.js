@@ -23,13 +23,14 @@ controller('organisationList', ["$scope", "$rootScope", "angularFireCollection",
           var principalContact = cntctsArray[principalId];
           principalContact.id = principalId;
           org.principal = principalContact;
+          //console.log(org);
         }
         else {
           console.log("Org without a principal!");
           console.log(org);
         }
       });
-      //console.log(orgArray);
+      $scope.stuffedOrgs = orgArray;
     });
   }
 ])
