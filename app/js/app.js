@@ -7,7 +7,8 @@ angular.module('myApp', [
   'myApp.filters',
   'myApp.services',
   'myApp.directives',
-  'myApp.controllers'
+  'myApp.controllers', 
+  'ngCsv'
 ]).
 config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/organisations', {templateUrl: '/app/partials/organisations.html', controller: 'organisationList'});
