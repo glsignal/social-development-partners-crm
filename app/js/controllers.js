@@ -44,7 +44,27 @@ controller('organisationList', ["$scope", "$rootScope", "angularFireCollection",
   .controller('contactList', ["$scope", "$rootScope", "angularFireCollection",
     function($scope, $rootScope, angularFireCollection) {
       var contacts = new Firebase("https://sdp-cms.firebaseio.com/contacts");
+      $scope.contactsDump = []; 
+
+      $scope.generateExportableData = function(contactsArray) {
+        //console.log(contactsArray);
+        for (var i = 0; i < contactsArray.length; i++) {
+          var oldObj = contactsArray[i];
+          //console.log(oldObj);
+          var newObject = {
+            "First Name": oldObj.firstname,
+            "Last Name": oldObj.lastname, 
+            "Job Title": oldObj.jobtitle,
+            "Company": oldObj.organisation, // TODO - REPLACE WITH RESOLVED ORG NAME.
+            "E-mail Address": oldObj.email,
+            "Primary Phone": oldObj.phone.landline, 
+            "Other Phone": oldObj.phone.other
+          }
+          $scope.contactsDump.push(newObject);
+        };
+
       $scope.contacts = angularFireCollection(contacts, function(i) {
+        $scope.generateExportableData(i.val()); 
           var emailBuffer = "";
           angular.forEach(i.val(), function(contact, key) {
             if (contact.email != null) {
@@ -57,20 +77,7 @@ controller('organisationList', ["$scope", "$rootScope", "angularFireCollection",
           emailBuffer = emailBuffer.substring(0, emailBuffer.length - 1);
           $scope.mailChimpData = emailBuffer;
       });
-
-      //$scope.contacts = [];
-      $scope.testDump = []; 
-      $scope.testExport = function() {
-        //console.log($scope.contacts);
-        for (var i = 0; i <= $scope.contacts.length; i++) {
-          var oldObj = $scope.contacts[i];
-          var newObject = {
-            firstname: oldObj.firstname,
-            lastname: oldObj.lastname
-          }
-          $scope.testDump.push(newObject);
-        };
-        console.log($scope.testDump);
+      //console.log($scope.contactsDump);
       }
     }
   ])
