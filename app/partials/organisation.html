@@ -1,4 +1,43 @@
 <h2>{{organisation.name}}</h2>
 <ul>
-    <div><label>Name</label><input ng-model="organisation.name"></div>
+    <div>
+      <div><label>Name</label><input ng-model="organisation.name"></div>
+      <div><label>Address</label><input ng-model="organisation.address.address1"><input ng-model="organisation.address.address2"><input ng-model="organisation.address.city"><input ng-model="organisation.address.postcode"></div>
+      <div><label>Date Joined</label><input ng-model="organisation.datejoined"></div>
+      <div><label>State</label><input ng-model="organisation.state"></div>
+    </div>
+
+    <div id="principle_contact">
+    </div>
+    <div id="payment_history">
+        <table>
+            <thead>
+                <tr>
+                    <th>Year</th>
+                    <th>Amount Billed</th>
+                    <th>Amount Paid</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="payment in payments">
+                    <td>{{payment.id}}</td>
+                    <td>{{payment.amountbilled}}</td>
+                    <td>{{payment.amountpaid}}</td>
+                </tr>
+            </tbody>
+
+        </table>
+
+    <!-- payment
+
+                2011
+                        amount:
+                        paid:
+                2012
+                        amount:
+                        paid:
+
+-->
+    </div>
+
 </ul>

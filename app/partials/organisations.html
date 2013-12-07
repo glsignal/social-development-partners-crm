@@ -12,7 +12,7 @@
     </thead>
     <tbody>
         <tr ng-repeat="org in stuffedOrgs">
-            <td>{{org.name}}</td>
+            <td><a href="#/organisation/{{org.id}}/"/>{{org.name}}</td>
             <td>{{org.address.city}}</td>
             <td>{{org.state}}</td>
             <td><a href="#/contact/{{org.principal.id}}">{{org.principal.firstname}} {{org.principal.lastname}}</a></td>

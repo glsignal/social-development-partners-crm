@@ -18,6 +18,7 @@ controller('organisationList', ["$scope", "$rootScope", "angularFireCollection",
         angular.forEach(orgArray, function(org, key){
           //console.log(key);
           var principalId = org.principal;
+          org.id = key;
           if (principalId != null) {
             var principalContact = cntctsArray[principalId];
             if (principalContact != null) {
@@ -60,10 +61,18 @@ controller('organisationList', ["$scope", "$rootScope", "angularFireCollection",
       }
     }
   ])
-  .controller('singleOrganisation', ["$scope", "$rootScope", "angularFire", "$routeParams",
-    function($scope, $rootScope, angularFire, $routeParams) {
-      var ref = new Firebase("https://sdp-cms.firebaseio.com/organisations/" + $routeParams.id);
-      angularFire(ref, $scope, "organisation");
+  .controller('singleOrganisation', ["$scope", "$rootScope", "angularFire", "angularFireCollection", "$routeParams",
+    function($scope, $rootScope, angularFire, angularFireCollection, $routeParams) {
+      var payments = new Firebase("https://sdp-cms.firebaseio.com/organisations/" + $routeParams.id + "/payments/");
+      angularFireCollection(payments, function(i) {
+          var stuffedPmnts = i.val();
+          angular.forEach(stuffedPmnts, function(pmnt, key){
+              pmnt.id = key;
+          });
+
+          $scope.payments = stuffedPmnts;});
+  var ref = new Firebase("https://sdp-cms.firebaseio.com/organisations/" + $routeParams.id);
+  angularFire(ref, $scope, "organisation");
     }
   ])
   .controller('singleContact', ["$scope", "$rootScope", "angularFire", "$routeParams",
