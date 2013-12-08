@@ -1,5 +1,5 @@
 <h2>Members</h2>
-<div><a href="#/organisation/add">add</a></div>
+<div><a href="#/organisation/add">Add</a></div>
 <button type="button" ng-csv="massiveDump" filename="sdp_members.csv" csv-header="['Organisation', 'Date Joined', 'Principal Contact', 'Primary Email', 'Primary Phone', 'Mailing Address', 'City', 'Postcode', 'Street Address']">Export as CSV</button>
 <table>
     <thead>
@@ -18,9 +18,7 @@
             <td>{{org.state}}</td>
             <td><a href="#/contact/{{org.principal.id}}">{{org.principal.firstname}} {{org.principal.lastname}}</a></td>
             <td>{{org.principal.email}}</td>
-            <td>{{org.payment['2012'].amount}}</td> <!-- TODO: This needs to be automagically assigned as the latest year.-->
-            <td>{{org.payment['2012'].paid}}</td> <!-- TODO: This needs to be automagically assigned as the latest year.-->
-            <td><button ng-toggle="">Paid</button></td> <!-- TODO: Hook this up. It will toggle paid between true/false and force an Update. --> 
+            <!--<td>{{org.payment[thisYear].amount}}</td> TODO-->
         </tr>
     </tbody>
 

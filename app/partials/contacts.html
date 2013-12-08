@@ -1,4 +1,6 @@
 <h2>Contacts</h2>
+<div><a href="#/organisation/add">Add</a></div>
+<button type="button" ng-csv="contactsDump" filename="sdp_contacts.csv" csv-header="['First Name', 'Last Name', 'Job Title', 'Organisation', 'Email Address', 'Primary Phone', 'Other Phone']" >Export as CSV</button>
 <table>
     <thead>
         <tr>
@@ -16,6 +18,5 @@
             <td>{{contact.email}}</td>
         </tr>
     </tbody>
-    <button type="button" ng-csv="contactsDump" filename="sdp_contacts.csv" csv-header="['First Name', 'Last Name', 'Job Title', 'Organisation', 'Email Address', 'Primary Phone', 'Other Phone']" >Export as CSV</button>
 </table>
 
