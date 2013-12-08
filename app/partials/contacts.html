@@ -13,7 +13,7 @@
         <tr class="{{$id}}" ng-repeat="contact in contacts">
             <td><a href="#/contact/"> {{contact.firstname}} {{contact.lastname}}</a></td>
             <td>{{contact.phone.landline}}</td>
-            <td><a href="#/organisation/{{contact.organisation}}">Org Name{{contact.organisation.name}}</a></td>
+            <td><a href="#/organisation/{{contact.organisation.id}}">{{contact.organisation.name}}</a></td>
             <td>{{contact.email}}</td>
         </tr>
     </tbody>
