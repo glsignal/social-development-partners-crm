@@ -114,35 +114,64 @@ controller('organisationList', ["$scope", "$rootScope", "angularFireCollection",
           $scope.contactsDump.push(newObject);
         }
       }
-      $scope.contacts = angularFireCollection(contacts, function(i) {
-        $scope.generateExportableData(i.val()); 
-          var emailBuffer = "";
-          angular.forEach(i.val(), function(contact, key) {
-            if (contact.email != null) {
-              emailBuffer += (contact.firstname == null ? '' : contact.firstname) + "|" + (contact.lastname == null ? '' : contact.lastname) + "|" + contact.email + ",";
-            }
-            else {
-              console.log("Contact without email! " + key);
-            }
-          });
-          emailBuffer = emailBuffer.substring(0, emailBuffer.length - 1);
-          $scope.mailChimpData = emailBuffer;
+
+      var orgs = new Firebase("https://sdp-cms.firebaseio.com/organisations");
+      angularFireCollection(orgs, function(org) {
+        var orgArray = org.val();
+        angularFireCollection(contacts, function(i) {
+            var cntctArray = i.val();
+            $scope.generateExportableData(cntctArray); 
+            var emailBuffer = "";
+            angular.forEach(cntctArray, function(contact, key) {
+              var orgId = contact.organisation;
+              contact.id = key;
+              if (orgId != null) {
+                var contactOrg = orgArray[orgId];
+                if (contactOrg != null) {
+                  contactOrg.id = orgId;
+                  contact.organisation = contactOrg;
+                }
+                else {
+                  console.log("Organisation " + orgId + " not found");
+                }
+                //console.log(contact);
+              }
+              else {
+                console.log("Contact without organisation!");
+                console.log(contact);
+              }
+
+              if (contact.email != null) {
+                emailBuffer += (contact.firstname == null ? '' : contact.firstname) + "|" + (contact.lastname == null ? '' : contact.lastname) + "|" + contact.email + ",";
+              }
+              else {
+                console.log("Contact without email! " + key);
+              }
+            });
+            emailBuffer = emailBuffer.substring(0, emailBuffer.length - 1);
+            $scope.contacts = cntctArray;
+            $scope.mailChimpData = emailBuffer;
+        });
       });
       //console.log($scope.contactsDump);
     }
   ])
   .controller('singleOrganisation', ["$scope", "$rootScope", "angularFire", "angularFireCollection", "$routeParams",
     function($scope, $rootScope, angularFire, angularFireCollection, $routeParams) {
-      var payments = new Firebase("https://sdp-cms.firebaseio.com/organisations/" + $routeParams.id + "/payments/");
-      angularFireCollection(payments, function(i) {
-          var stuffedPmnts = i.val();
-          angular.forEach(stuffedPmnts, function(pmnt, key){
-              pmnt.id = key;
-          });
+        var payments = new Firebase("https://sdp-cms.firebaseio.com/organisations/" + $routeParams.id + "/payments/");
 
-          $scope.payments = stuffedPmnts;});
-  var ref = new Firebase("https://sdp-cms.firebaseio.com/organisations/" + $routeParams.id);
-  angularFire(ref, $scope, "organisation");
+        angularFire(payments, $scope, 'payments');
+
+        //This doesn't frekin work!
+        angular.forEach($scope.payments, function(pmnt, key){
+            pmnt.status = "unpaid";
+            if (pmnt.amountpaid > 0) {
+                pmnt.status = "paid";
+            }
+        });
+
+        var ref = new Firebase("https://sdp-cms.firebaseio.com/organisations/" + $routeParams.id);
+        angularFire(ref, $scope, "organisation");
     }
   ])
   .controller('addOrganisation', ["$scope", "$rootScope", "$location", "angularFireCollection",
@@ -156,6 +185,16 @@ controller('organisationList', ["$scope", "$rootScope", "angularFireCollection",
             };
         }
     ])
+  .controller('addContact', ["$scope", "$rootScope", "$location", "angularFireCollection",
+      function($scope, $rootScope, $location, angularFireCollection) {
+          $scope.contacts = new Firebase("https://sdp-cms.firebaseio.com/contacts/");
+          $scope.addContact = function(contact) {
+              var id = $scope.contacts.push(contact).name();
+              $scope.id = id;
+              $location.path( '/contact/' + id + '/').replace();
+          };
+      }
+  ])
   .controller('singleContact', ["$scope", "$rootScope", "angularFire", "$routeParams",
    function($scope, $rootScope, angularFire, $routeParams) {
     var ref = new Firebase("https://sdp-cms.firebaseio.com/contacts/" + $routeParams.id);
