@@ -107,16 +107,20 @@ controller('organisationList', ["$scope", "$rootScope", "angularFireCollection",
   ])
   .controller('singleOrganisation', ["$scope", "$rootScope", "angularFire", "angularFireCollection", "$routeParams",
     function($scope, $rootScope, angularFire, angularFireCollection, $routeParams) {
-      var payments = new Firebase("https://sdp-cms.firebaseio.com/organisations/" + $routeParams.id + "/payments/");
-      angularFireCollection(payments, function(i) {
-          var stuffedPmnts = i.val();
-          angular.forEach(stuffedPmnts, function(pmnt, key){
-              pmnt.id = key;
-          });
+        var payments = new Firebase("https://sdp-cms.firebaseio.com/organisations/" + $routeParams.id + "/payments/");
 
-          $scope.payments = stuffedPmnts;});
-  var ref = new Firebase("https://sdp-cms.firebaseio.com/organisations/" + $routeParams.id);
-  angularFire(ref, $scope, "organisation");
+        angularFire(payments, $scope, 'payments');
+
+        //This doesn't frekin work!
+        angular.forEach($scope.payments, function(pmnt, key){
+            pmnt.status = "unpaid";
+            if (pmnt.amountpaid > 0) {
+                pmnt.status = "paid";
+            }
+        });
+
+        var ref = new Firebase("https://sdp-cms.firebaseio.com/organisations/" + $routeParams.id);
+        angularFire(ref, $scope, "organisation");
     }
   ])
   .controller('addOrganisation', ["$scope", "$rootScope", "$location", "angularFireCollection",

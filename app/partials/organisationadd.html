@@ -1,0 +1,10 @@
+<h2>{{organisation.name}}</h2>
+<ul>
+    <div>
+      <div><label>Name</label><input ng-model="organisation.name"></div>
+      <div><label>Address</label><input ng-model="organisation.address.address1"><input ng-model="organisation.address.address2"><input ng-model="organisation.address.city"><input ng-model="organisation.address.postcode"></div>
+      <div><label>Date Joined</label><input ng-model="organisation.datejoined"></div>
+      <div><label>State</label><input ng-model="organisation.state"></div>
+    </div>
+    <button ng-click="addOrg(organisation)">Add Organisation</button>
+</ul>
