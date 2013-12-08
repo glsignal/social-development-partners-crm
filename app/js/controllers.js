@@ -6,7 +6,56 @@ angular.module('myApp.controllers', []).
 controller('organisationList', ["$scope", "$rootScope", "angularFireCollection",
   function($scope, $rootScope, angularFireCollection) {
     var cntcts = new Firebase("https://sdp-cms.firebaseio.com/contacts");
-    var cntctsArray
+    var cntctsArray;
+    $scope.massiveDump = []; 
+    $scope.generateExportableData = function(massiveArray) {
+      //console.log(contactsArray);
+      angular.forEach(massiveArray, function(oldObj, key){
+        console.log(oldObj, key);
+        var newObject = {
+          "Organisation": quote(oldObj.name),
+          "Date Joined": quote(oldObj.datejoined),
+          "Principal Contact": quote(isDefined(oldObj, 'principal', 'firstname') + " " + isDefined(oldObj, 'principal', 'lastname')), 
+          "Primary Email": quote(isDefined(oldObj, 'principal', 'email')) ,
+          "Primary Phone": quote(isDefined(oldObj, 'principal', 'landline')) ,
+          "Address": quote(isDefined(oldObj, 'address', 'address1') + ", " + isDefined(oldObj, 'address', 'address2')) ,
+          "City": quote(isDefined(oldObj, 'address', 'city')),
+          "Postcode": quote(isDefined(oldObj, 'address', 'postcode')),
+          "Street Address": quote(isDefined(oldObj, 'address', 'streetaddress') + ", " + isDefined(oldObj, 'address', 'suburb'))
+        }
+        $scope.massiveDump.push(newObject);
+      });
+      console.log($scope.massiveDump);
+
+      function quote(str) {
+        if (typeof(str) === "string") {
+          // console.log(str);
+          if (str.indexOf(",") >= 0 || str.indexOf("\"") >= 0) {
+            if (str.indexOf("\"") >= 0) {
+              str = str.replace("\"", "\"\"");
+            }
+            str = "\"" + str + "\"";
+          }
+        }
+        return str;
+      };
+      
+      function isDefined(oldObj, parent, child) {
+        if(oldObj[parent] == undefined) {
+          return "N/A";
+        }
+        else {
+          var childVal = oldObj[parent][child];
+          if (childVal == null) {
+            return "N/A";
+          }
+          else {
+            return childVal;
+          }
+        }
+      };
+    };
+
     $scope.contacts = angularFireCollection(cntcts, function(cntct){
       cntctsArray = cntct.val();
       var orgs = new Firebase("https://sdp-cms.firebaseio.com/organisations");
@@ -36,6 +85,8 @@ controller('organisationList', ["$scope", "$rootScope", "angularFireCollection",
           }
         });
         $scope.stuffedOrgs = orgArray;
+        
+        $scope.generateExportableData(orgArray); 
       });
 
     });
