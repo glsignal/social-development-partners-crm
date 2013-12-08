@@ -67,10 +67,11 @@ controller('organisationList', ["$scope", "$rootScope", "angularFireCollection",
       var orgs = new Firebase("https://sdp-cms.firebaseio.com/organisations");
       angularFireCollection(orgs, function(org) {
         var orgArray = org.val();
-        $scope.contacts = angularFireCollection(contacts, function(i) {
-          $scope.generateExportableData(i.val()); 
+        angularFireCollection(contacts, function(i) {
+            var cntctArray = i.val();
+            $scope.generateExportableData(cntctArray); 
             var emailBuffer = "";
-            angular.forEach(i.val(), function(contact, key) {
+            angular.forEach(cntctArray, function(contact, key) {
               var orgId = contact.organisation;
               contact.id = key;
               if (orgId != null) {
@@ -97,6 +98,7 @@ controller('organisationList', ["$scope", "$rootScope", "angularFireCollection",
               }
             });
             emailBuffer = emailBuffer.substring(0, emailBuffer.length - 1);
+            $scope.contacts = cntctArray;
             $scope.mailChimpData = emailBuffer;
         });
       });
