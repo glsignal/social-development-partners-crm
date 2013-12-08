@@ -105,6 +105,16 @@ controller('organisationList', ["$scope", "$rootScope", "angularFireCollection",
             };
         }
     ])
+  .controller('addContact', ["$scope", "$rootScope", "$location", "angularFireCollection",
+      function($scope, $rootScope, $location, angularFireCollection) {
+          $scope.contacts = new Firebase("https://sdp-cms.firebaseio.com/contacts/");
+          $scope.addContact = function(contact) {
+              var id = $scope.contacts.push(contact).name();
+              $scope.id = id;
+              $location.path( '/contact/' + id + '/').replace();
+          };
+      }
+  ])
   .controller('singleContact', ["$scope", "$rootScope", "angularFire", "$routeParams",
    function($scope, $rootScope, angularFire, $routeParams) {
     var ref = new Firebase("https://sdp-cms.firebaseio.com/contacts/" + $routeParams.id);

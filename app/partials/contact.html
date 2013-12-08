@@ -1,5 +1,11 @@
-<div><label>Name</label><input ng-model="contact.firstname"><input ng-model="contact.lastname"></div>
-<div><label>Email</label><input ng-model="contact.email"></div>
-<div><label>Notes</label><textarea ng-model="contact.notes"></textarea></div>
-<div><label>Organisation</label><input ng-model="contact.organisation"></div>
-<div><label>Phone</label><input ng-model="contact.phone.landline"><input ng-model="contact.phone.mobile"></div>
+<h2>{{contact.firstname}} {{contact.lastname}}</h2>
+<ul>
+    <div>
+        <div><label>Name</label><input ng-model="contact.firstname"><input ng-model="contact.lastname"></div>
+        <div><label>Email</label><input ng-model="contact.email"></div>
+        <div><label>Job Title</label><input ng-model="contact.jobtitle"></div>
+        <div><label>Notes</label><textarea ng-model="contact.notes"></textarea></div>
+        <div><label>Organisation</label><input ng-model="contact.organisation"></div>
+        <div><label>Phone</label><input ng-model="contact.phone.landline"><input ng-model="contact.phone.mobile"></div>
+    </div>
+</ul>
