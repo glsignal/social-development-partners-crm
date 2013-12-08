@@ -1,6 +1,18 @@
 'use strict';
 
 /* Controllers */
+function quote(str) {
+  if (typeof(str) === "string") {
+    // console.log(str);
+    if (str.indexOf(",") >= 0 || str.indexOf("\"") >= 0) {
+      if (str.indexOf("\"") >= 0) {
+        str = str.replace("\"", "\"\"");
+      }
+      str = "\"" + str + "\"";
+    }
+  }
+  return str;
+};
 
 angular.module('myApp.controllers', []).
 controller('organisationList', ["$scope", "$rootScope", "angularFireCollection",
@@ -27,18 +39,7 @@ controller('organisationList', ["$scope", "$rootScope", "angularFireCollection",
       });
       console.log($scope.massiveDump);
 
-      function quote(str) {
-        if (typeof(str) === "string") {
-          // console.log(str);
-          if (str.indexOf(",") >= 0 || str.indexOf("\"") >= 0) {
-            if (str.indexOf("\"") >= 0) {
-              str = str.replace("\"", "\"\"");
-            }
-            str = "\"" + str + "\"";
-          }
-        }
-        return str;
-      };
+      
       
       function isDefined(oldObj, parent, child) {
         if(oldObj[parent] == undefined) {
@@ -103,13 +104,13 @@ controller('organisationList', ["$scope", "$rootScope", "angularFireCollection",
           var oldObj = contactsArray[i];
           //console.log(oldObj);
           var newObject = {
-            "First Name": oldObj.firstname,
-            "Last Name": oldObj.lastname, 
-            "Job Title": oldObj.jobtitle,
-            "Company": oldObj.organisation, // TODO - REPLACE WITH RESOLVED ORG NAME.
-            "E-mail Address": oldObj.email,
-            "Primary Phone": oldObj.phone.landline, 
-            "Other Phone": oldObj.phone.other
+            "First Name": quote(oldObj.firstname),
+            "Last Name": quote(oldObj.lastname), 
+            "Job Title": quote(oldObj.jobtitle),
+            "Company": quote(oldObj.organisation), // TODO - REPLACE WITH RESOLVED ORG NAME.
+            "E-mail Address": quote(oldObj.email),
+            "Primary Phone": quote(oldObj.phone.landline), 
+            "Other Phone": quote(oldObj.phone.other)
           }
           $scope.contactsDump.push(newObject);
         }
