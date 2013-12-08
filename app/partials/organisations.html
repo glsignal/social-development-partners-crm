@@ -4,15 +4,15 @@
 <table>
     <thead>
         <tr>
-            <th>Name</th>
-            <th>City</th>
-            <th>Status</th>
-            <th>Contact</th>
-            <th>Email</th>
+            <th><a href="" ng-click="reorderTable('name')">Name</a></th>
+            <th><a href="" ng-click="reorderTable('address.city')">City</a></th>
+            <th><a href="" ng-click="reorderTable('state')">Status</a></th>
+            <th><a href="" ng-click="reorderTable('principal.firstname')">Contact</a></th>
+            <th><a href="" ng-click="reorderTable('principal.email')">Email</a></th>
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="org in stuffedOrgs">
+        <tr ng-repeat="org in stuffedOrgs | orderBy:predicate:reverse">
             <td><a href="#/organisation/{{org.id}}/"/>{{org.name}}</td>
             <td>{{org.address.city}}</td>
             <td>{{org.state}}</td>

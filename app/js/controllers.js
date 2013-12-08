@@ -5,6 +5,16 @@
 angular.module('myApp.controllers', []).
 controller('organisationList', ["$scope", "$rootScope", "angularFireCollection",
   function($scope, $rootScope, angularFireCollection) {
+    $scope.predicate = 'name';
+    $scope.reverse = false;
+
+    // Set the table ordering predicate, only reverse if the same column is
+    // invoked consecutively, otherwise set reversed to false.
+    $scope.reorderTable = function(predicate) {
+      $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
+      $scope.predicate = predicate;
+    }
+
     var cntcts = new Firebase("https://sdp-cms.firebaseio.com/contacts");
     var cntctsArray
     $scope.contacts = angularFireCollection(cntcts, function(cntct){
@@ -15,6 +25,7 @@ controller('organisationList', ["$scope", "$rootScope", "angularFireCollection",
 
       $scope.organisations = angularFireCollection(orgs, function(org) {
         var orgArray = org.val();
+        $scope.stuffedOrgs = [];
         angular.forEach(orgArray, function(org, key){
           //console.log(key);
           var principalId = org.principal;
@@ -34,8 +45,8 @@ controller('organisationList', ["$scope", "$rootScope", "angularFireCollection",
             console.log("Org without a principal!");
             console.log(org);
           }
+          $scope.stuffedOrgs.push(org);
         });
-        $scope.stuffedOrgs = orgArray;
       });
 
     });
@@ -43,6 +54,15 @@ controller('organisationList', ["$scope", "$rootScope", "angularFireCollection",
 ])
   .controller('contactList', ["$scope", "$rootScope", "angularFireCollection",
     function($scope, $rootScope, angularFireCollection) {
+      $scope.predicate = 'name';
+      $scope.reverse = false;
+
+      // Set the table ordering predicate, only reverse if the same column is
+      // invoked consecutively, otherwise set reversed to false.
+      $scope.reorderTable = function(predicate) {
+        $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
+        $scope.predicate = predicate;
+      }
       var contacts = new Firebase("https://sdp-cms.firebaseio.com/contacts");
       $scope.contactsDump = []; 
 
@@ -69,6 +89,7 @@ controller('organisationList', ["$scope", "$rootScope", "angularFireCollection",
         var orgArray = org.val();
         angularFireCollection(contacts, function(i) {
             var cntctArray = i.val();
+            $scope.contacts = [];
             $scope.generateExportableData(cntctArray); 
             var emailBuffer = "";
             angular.forEach(cntctArray, function(contact, key) {
@@ -96,9 +117,9 @@ controller('organisationList', ["$scope", "$rootScope", "angularFireCollection",
               else {
                 console.log("Contact without email! " + key);
               }
+              $scope.contacts.push(contact);
             });
             emailBuffer = emailBuffer.substring(0, emailBuffer.length - 1);
-            $scope.contacts = cntctArray;
             $scope.mailChimpData = emailBuffer;
         });
       });

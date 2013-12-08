@@ -3,14 +3,14 @@
 <table>
     <thead>
         <tr>
-            <th>Name</th>
-            <th>Phone Number</th>
-            <th>Organisation</th>
-            <th>Email</th>
+            <th><a href="" ng-click="reorderTable('firstname')">Name</a></th>
+            <th><a href="" ng-click="reorderTable('phone.landline')">Phone Number</a></th>
+            <th><a href="" ng-click="reorderTable('organisation.name')">Organisation</a></th>
+            <th><a href="" ng-click="reorderTable('email')">Email</a></th>
         </tr>
     </thead>
     <tbody>
-        <tr class="{{$id}}" ng-repeat="contact in contacts">
+        <tr class="{{$id}}" ng-repeat="contact in contacts | orderBy:predicate:reverse">
             <td><a href="#/contact/"> {{contact.firstname}} {{contact.lastname}}</a></td>
             <td>{{contact.phone.landline}}</td>
             <td><a href="#/organisation/{{contact.organisation.id}}">{{contact.organisation.name}}</a></td>
